@@ -1,0 +1,1502 @@
+{
+  "info": {
+    "_postman_id": "b0a77270-bf3f-4160-8f79-6964502718a7",
+    "name": "Library System Api",
+    "description": "# A REST API for managing a library system built with Node.js,\n\nExpress, and MongoDB.\n\nThe system supports two user roles — students and attendants.  \nAttendants manage authors, books, and borrow transactions.  \nStudents can view authors and books.\n\nBase URL: {{baseUrl}}\n\nAuthentication: All protected routes require a Bearer token  \nobtained from the Login endpoint. Set the token as an  \nenvironment variable after login — it is automatically  \ncaptured via the Login request test script.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53144377",
+    "_collection_link": "https://go.postman.co/collection/53144377-b0a77270-bf3f-4160-8f79-6964502718a7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Student",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john@gmail.com\",\r\n  \"password\": \"password123\",\r\n  \"role\": \"student\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Creates a new student account.\n\nRole: Public\n\nMethod: POST\n\nURL: /api/auth/register\n\nPass name, email, password, and role as \"student\" in the  \nrequest body. Returns the created user's id, name, email,  \nand role on success.\n\nPossible errors:\n\n- 400: All fields are required\n    \n- 400: User already exists"
+          },
+          "response": [
+            {
+              "name": "Register Student",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john@gmail.com\",\r\n  \"password\": \"password123\",\r\n  \"role\": \"student\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "152"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"98-DF7ox793BQUZ+jUrOKAaBg5jFWc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:21:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User John Doe registered successfully\",\n    \"data\": {\n        \"id\": \"69de0712d693e637533ba17e\",\n        \"name\": \"John Doe\",\n        \"email\": \"john@gmail.com\",\n        \"role\": \"student\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Register Attendant",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Jane Smith\",\r\n  \"email\": \"jane@example.com\",\r\n  \"password\": \"password123\",\r\n  \"role\": \"attendant\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Creates a new attendant account.\n\nRole: Public  \nMethod: POST  \nURL: /api/auth/register\n\nPass name, email, password, and role as \"attendant\" in the  \nrequest body. Returns the created user's id, name, email,  \nand role on success.\n\nPossible errors:\n\n- 400: All fields are required\n    \n- 400: User already exists"
+          },
+          "response": [
+            {
+              "name": "Register Attendant",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Jane Smith\",\r\n  \"email\": \"jane@example.com\",\r\n  \"password\": \"password123\",\r\n  \"role\": \"attendant\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "160"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"a0-NSQ5g373KD0qYP2hmdIO3ep3sww\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:22:04 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User Jane Smith registered successfully\",\n    \"data\": {\n        \"id\": \"69de073cd693e637533ba181\",\n        \"name\": \"Jane Smith\",\n        \"email\": \"jane@example.com\",\n        \"role\": \"attendant\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "pm.environment.set(\"token\", response.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"jane@example.com\",\r\n  \"password\": \"password123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Authenticates a user and returns a JWT token.\n\nRole: Public  \nMethod: POST  \nURL: /api/auth/login\n\nPass email and password in the request body. On success,  \nreturns a JWT token and basic user details. The token is  \nautomatically saved to the environment variable \"token\"  \nvia the Tests script — no manual copying needed.The token expires based on the server's JWT_EXPIRES_IN  \nconfiguration. Re-run this request when the token expires.Possible errors:\n\n- 400: All fields are required\n    \n- 401: Invalid credentials"
+          },
+          "response": [
+            {
+              "name": "Login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"jane@example.com\",\r\n  \"password\": \"password123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "273"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"111-1ogwocyPO0u9n/aSVVArQbKx5k8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:32:20 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Login successful\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZGUwNzNjZDY5M2U2Mzc1MzNiYTE4MSIsImlhdCI6MTc3NjE1OTE0MCwiZXhwIjoxNzc2MjQ1NTQwfQ.uuLIwpCOJnWkX24tiQH-P5wV3d5vQA0bsHPMTejAHjI\",\n    \"user\": {\n        \"name\": \"Jane Smith\",\n        \"id\": \"69de073cd693e637533ba181\"\n    }\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Handles user registration and authentication.  \nAll routes in this folder are public — no token required."
+    },
+    {
+      "name": "Authors",
+      "item": [
+        {
+          "name": "Create Author",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Chinua Achebe\",\r\n  \"bio\": \"Nigerian author and professor\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/authors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "authors"
+              ]
+            },
+            "description": "Creates a new author record.\n\nRole: Attendant only  \nMethod: POST  \nURL: /api/authors\n\nPass name and an optional bio in the request body.  \nThe author's generated ID should be copied and used  \nin the authors array when creating a book.\n\nPossible errors:\n\n- 400: Name is required\n    \n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions"
+          },
+          "response": [
+            {
+              "name": "Create Author",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Wole Soyinka\",\r\n  \"bio\": \"Nigerian author and professor\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/authors",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "authors"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "229"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e5-mea8wp52+tusQdNnRo/wwNv2D3k\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:33:30 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Author created successfully\",\n    \"data\": {\n        \"name\": \"Wole Soyinka\",\n        \"bio\": \"Nigerian author and professor\",\n        \"_id\": \"69de09ead693e637533ba185\",\n        \"createdAt\": \"2026-04-14T09:33:30.808Z\",\n        \"updatedAt\": \"2026-04-14T09:33:30.808Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Authors",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/authors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "authors"
+              ]
+            },
+            "description": "Retrieves a list of all authors in the database.\n\nRole: Student, Attendant  \nMethod: GET  \nURL: /api/authors\n\nNo request body needed. Returns an array of all author  \ndocuments including id, name, bio, and timestamps.\n\nPossible errors:\n\n- 401: Unauthorized, token missing"
+          },
+          "response": [
+            {
+              "name": "Get All Authors",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/authors",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "authors"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "414"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"19e-90SRpWJafBpLlbtrVML9PgjFsLo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:33:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Authors fetched successfully\",\n    \"data\": [\n        {\n            \"_id\": \"69de09ead693e637533ba185\",\n            \"name\": \"Wole Soyinka\",\n            \"bio\": \"Nigerian author and professor\",\n            \"createdAt\": \"2026-04-14T09:33:30.808Z\",\n            \"updatedAt\": \"2026-04-14T09:33:30.808Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"69dd76afa7b5bea2a5c714c6\",\n            \"name\": \"Chinua Achebe\",\n            \"bio\": \"Nigerian author and professor\",\n            \"createdAt\": \"2026-04-13T23:05:19.275Z\",\n            \"updatedAt\": \"2026-04-13T23:05:19.275Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Author By Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/authors/69de09ead693e637533ba185",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "authors",
+                "69de09ead693e637533ba185"
+              ]
+            },
+            "description": "Retrieves a single author by their ID.\n\nRole: Student, Attendant  \nMethod: GET  \nURL: /api/authors/:id\n\nPass the author's ID as a URL parameter. Returns the  \nauthor document if found.\n\nPossible errors:\n\n- 401: Unauthorized, token missing\n    \n- 404: Author not found"
+          },
+          "response": [
+            {
+              "name": "Get Author By Id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/authors/69de09ead693e637533ba185",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "authors",
+                    "69de09ead693e637533ba185"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "230"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e6-QLXexL833CkYknWDMi+YDftYTjQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:34:23 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Author  fetched successfully\",\n    \"data\": {\n        \"_id\": \"69de09ead693e637533ba185\",\n        \"name\": \"Wole Soyinka\",\n        \"bio\": \"Nigerian author and professor\",\n        \"createdAt\": \"2026-04-14T09:33:30.808Z\",\n        \"updatedAt\": \"2026-04-14T09:33:30.808Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Author",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Wole Soyinka\",\r\n  \"bio\": \"Updated bio: He is a very good writer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/authors/69de09ead693e637533ba185",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "authors",
+                "69de09ead693e637533ba185"
+              ]
+            },
+            "description": "Updates an existing author's details.\n\nRole: Attendant only  \nMethod: PUT  \nURL: /api/authors/:id\n\nPass the author's ID as a URL parameter. Include any  \nfields to update in the request body — name, bio, or both.  \nOnly the fields provided will be updated.\n\nPossible errors:\n\n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions\n    \n- 404: Author not found"
+          },
+          "response": [
+            {
+              "name": "Update Author",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Wole Soyinka\",\r\n  \"bio\": \"Updated bio: He is a very good writer\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/authors/69de09ead693e637533ba185",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "authors",
+                    "69de09ead693e637533ba185"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "237"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ed-sutSuQzaxgqb4/xa4CzI+Bw7KpA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:35:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Author updated successfully\",\n    \"data\": {\n        \"_id\": \"69de09ead693e637533ba185\",\n        \"name\": \"Wole Soyinka\",\n        \"bio\": \"Updated bio: He is a very good writer\",\n        \"createdAt\": \"2026-04-14T09:33:30.808Z\",\n        \"updatedAt\": \"2026-04-14T09:35:26.128Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Author",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/authors/69de09ead693e637533ba185",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "authors",
+                "69de09ead693e637533ba185"
+              ]
+            },
+            "description": "Deletes an author record from the database.\n\nRole: Attendant only  \nMethod: DELETE  \nURL: /api/authors/:id\n\nPass the author's ID as a URL parameter. No request  \nbody needed.\n\nNote: Deleting an author does not automatically remove  \ntheir reference from existing books. Handle this at the  \napplication level if needed.\n\nPossible errors:\n\n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions\n    \n- 404: Author not found"
+          },
+          "response": [
+            {
+              "name": "Delete Author",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/authors/69de09ead693e637533ba185",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "authors",
+                    "69de09ead693e637533ba185"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "41"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"29-y5E/g1GAJiT/kj57/wpYgn2BeFk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:35:54 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Author deleted successfully\"\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Manages author records in the system. Authors must exist  \nin the database before they can be assigned to a book.\n\nAll routes in this folder require authentication.  \nCreate, update, and delete are restricted to attendants only."
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "Add Book",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Things Fall Apart\",\r\n  \"isbn\": \"978-0-385-47454-2\",\r\n  \"authors\": [\"69dd76afa7b5bea2a5c714c6\"],\r\n  \"totalCopies\": 5,\r\n  \"availableCopies\": 5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ]
+            },
+            "description": "Adds a new book to the library inventory.\n\nRole: Attendant only  \nMethod: POST  \nURL: /api/books\n\nPass title, isbn, an array of valid author IDs,  \ntotalCopies, and availableCopies in the request body.  \nISBN must be unique across all books.\n\nPossible errors:\n\n- 400: All required fields must be provided\n    \n- 400: ISBN already exists\n    \n- 400: At least one author is required\n    \n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions"
+          },
+          "response": [
+            {
+              "name": "Add Book",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"title\": \"Things Fall Apart\",\r\n  \"isbn\": \"978-0-385-47454-2\",\r\n  \"authors\": [\"69dd76afa7b5bea2a5c714c6\"],\r\n  \"totalCopies\": 5,\r\n  \"availableCopies\": 5\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/books",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "books"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "297"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"129-45vbeuUAfWvik95e0xA6NRkCPKo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:36:36 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Book created successfully\",\n    \"data\": {\n        \"title\": \"Things Fall Apart\",\n        \"isbn\": \"978-0-385-47454-2\",\n        \"authors\": [\n            \"69dd76afa7b5bea2a5c714c6\"\n        ],\n        \"totalCopies\": 5,\n        \"availableCopies\": 5,\n        \"_id\": \"69de0aa4d693e637533ba194\",\n        \"createdAt\": \"2026-04-14T09:36:36.297Z\",\n        \"updatedAt\": \"2026-04-14T09:36:36.297Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Books",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ]
+            },
+            "description": "Retrieves a list of all books in the library.\n\nRole: Student, Attendant  \nMethod: GET  \nURL: /api/books\n\nNo request body needed. Returns an array of all book  \ndocuments with author details populated.\n\nPossible errors:\n\n- 401: Unauthorized, token missing"
+          },
+          "response": [
+            {
+              "name": "Get All Books",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/books",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "books"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "300"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"12c-PVaQ1Wto/iwafIplqxeRZoc9xE4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:36:52 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Books fetched successfully\",\n    \"data\": [\n        {\n            \"_id\": \"69de0aa4d693e637533ba194\",\n            \"title\": \"Things Fall Apart\",\n            \"isbn\": \"978-0-385-47454-2\",\n            \"authors\": [\n                \"69dd76afa7b5bea2a5c714c6\"\n            ],\n            \"totalCopies\": 5,\n            \"availableCopies\": 5,\n            \"createdAt\": \"2026-04-14T09:36:36.297Z\",\n            \"updatedAt\": \"2026-04-14T09:36:36.297Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Book By Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books/69de0aa4d693e637533ba194",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "69de0aa4d693e637533ba194"
+              ]
+            },
+            "description": "Retrieves a single book by its ID.\n\nRole: Student, Attendant  \nMethod: GET  \nURL: /api/books/:id\n\nPass the book's ID as a URL parameter. Returns the full  \nbook document with author details populated.\n\nPossible errors:\n\n- 401: Unauthorized, token missing\n    \n- 404: Book not found"
+          },
+          "response": [
+            {
+              "name": "Get Book By Id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "text"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/books/69de0aa4d693e637533ba194",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "books",
+                    "69de0aa4d693e637533ba194"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "452"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1c4-hOTZVDOQA/APEVpTIPX2y6uTsZs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:37:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Book fetched successfully\",\n    \"data\": {\n        \"_id\": \"69de0aa4d693e637533ba194\",\n        \"title\": \"Things Fall Apart\",\n        \"isbn\": \"978-0-385-47454-2\",\n        \"authors\": [\n            {\n                \"_id\": \"69dd76afa7b5bea2a5c714c6\",\n                \"name\": \"Chinua Achebe\",\n                \"bio\": \"Nigerian author and professor\",\n                \"createdAt\": \"2026-04-13T23:05:19.275Z\",\n                \"updatedAt\": \"2026-04-13T23:05:19.275Z\",\n                \"__v\": 0\n            }\n        ],\n        \"totalCopies\": 5,\n        \"availableCopies\": 5,\n        \"createdAt\": \"2026-04-14T09:36:36.297Z\",\n        \"updatedAt\": \"2026-04-14T09:36:36.297Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Book",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Things Fall Apart\",\r\n  \"totalCopies\": 10,\r\n  \"availableCopies\": 10\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books/69de0aa4d693e637533ba194",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "69de0aa4d693e637533ba194"
+              ]
+            },
+            "description": "Updates an existing book's details.\n\nRole: Attendant only  \nMethod: PUT  \nURL: /api/books/:id\n\nPass the book's ID as a URL parameter. Include any  \nfields to update in the request body. Only the fields  \nprovided will be updated.\n\nPossible errors:\n\n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions\n    \n- 404: Book not found"
+          },
+          "response": [
+            {
+              "name": "Update Book",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"title\": \"Things Fall Apart\",\r\n  \"totalCopies\": 10,\r\n  \"availableCopies\": 10\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/books/69de0aa4d693e637533ba194",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "books",
+                    "69de0aa4d693e637533ba194"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "299"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"12b-cFa0oq64AZLrmR/KZ+60BQVcy3s\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:39:19 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Book updated successfully\",\n    \"data\": {\n        \"_id\": \"69de0aa4d693e637533ba194\",\n        \"title\": \"Things Fall Apart\",\n        \"isbn\": \"978-0-385-47454-2\",\n        \"authors\": [\n            \"69dd76afa7b5bea2a5c714c6\"\n        ],\n        \"totalCopies\": 10,\n        \"availableCopies\": 10,\n        \"createdAt\": \"2026-04-14T09:36:36.297Z\",\n        \"updatedAt\": \"2026-04-14T09:39:19.650Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Book",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books/69de0aa4d693e637533ba194",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "69de0aa4d693e637533ba194"
+              ]
+            },
+            "description": "Deletes a book from the library inventory.\n\nRole: Attendant only  \nMethod: DELETE  \nURL: /api/books/:id\n\nPass the book's ID as a URL parameter. No request  \nbody needed.\n\nNote: A book with active borrow records should not  \nbe deleted. Verify no active borrows exist before  \ndeleting.\n\nPossible errors:\n\n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions\n    \n- 404: Book not found"
+          },
+          "response": [
+            {
+              "name": "Delete Book",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/books/69de0aa4d693e637533ba194",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "books",
+                    "69de0aa4d693e637533ba194"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "39"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"27-2sU+wH8LsO2HgYqDa0daGODIV30\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 10:14:35 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Book deleted successfully\"\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Manages the library's book inventory. Books must be  \ncreated with at least one valid author ID that already  \nexists in the database.\n\nAll routes require authentication. Add, update, and  \ndelete are restricted to attendants only."
+    },
+    {
+      "name": "Borrows",
+      "item": [
+        {
+          "name": "Borrow Book",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"bookId\": \"69de0aa4d693e637533ba194\",\r\n  \"studentId\": \"69dd6f5034155a4c948fbd19\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/borrows",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "borrows"
+              ]
+            },
+            "description": "Issues a book to a student and creates a borrow record.\n\nRole: Attendant only  \nMethod: POST  \nURL: /api/borrows\n\nPass bookId and studentId in the request body. The  \nattendant's ID is automatically extracted from the  \nauthentication token — it does not need to be passed  \nin the request body.\n\nOn success:\n\n- A new BorrowRecord is created with status \"borrowed\"\n    \n- The book's availableCopies is decremented by 1\n    \n\nPossible errors:\n\n- 400: bookId and studentId are required\n    \n- 400: Book is not available for borrowing\n    \n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions\n    \n- 404: Book not found\n    \n- 404: Student not found"
+          },
+          "response": [
+            {
+              "name": "Borrow Book",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"bookId\": \"69de0aa4d693e637533ba194\",\r\n  \"studentId\": \"69dd6f5034155a4c948fbd19\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/borrows",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "borrows"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "396"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"18c-05yZFsbTpB3Ow9uOMmJpFPQ/pm0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:39:59 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Book borrowed successfully!\",\n    \"data\": {\n        \"book\": \"69de0aa4d693e637533ba194\",\n        \"borrowedBy\": \"69dd6f5034155a4c948fbd19\",\n        \"issuedBy\": \"69de073cd693e637533ba181\",\n        \"borrowDate\": \"2026-04-14T09:39:59.147Z\",\n        \"dueDate\": \"2026-04-21T09:39:59.142Z\",\n        \"returnDate\": null,\n        \"status\": \"borrowed\",\n        \"_id\": \"69de0b6f49baa3407f867bea\",\n        \"createdAt\": \"2026-04-14T09:39:59.159Z\",\n        \"updatedAt\": \"2026-04-14T09:39:59.159Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Return Book",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/69de0b6f49baa3407f867bea/return",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "69de0b6f49baa3407f867bea",
+                "return"
+              ]
+            },
+            "description": "Processes a book return and updates the borrow record.\n\nRole: Attendant only  \nMethod: PUT  \nURL: /api/borrows/:borrowId/return\n\nPass the borrowId as a URL parameter. No request  \nbody needed. The system automatically sets the  \nreturnDate to the current date and updates the  \nborrow status.\n\nOn success:\n\n- BorrowRecord status is updated to \"returned\"\n    \n- returnDate is set to current date\n    \n- Book's availableCopies is incremented by 1\n    \n- Book status is set back to \"IN\" if availableCopies  \n    goes above 0\n    \n\nPossible errors:\n\n- 401: Unauthorized, token missing\n    \n- 403: Forbidden, insufficient permissions\n    \n- 404: Borrow record not found\n    \n- 400: Book has already been returned"
+          },
+          "response": [
+            {
+              "name": "Return Book",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/69de0b6f49baa3407f867bea/return",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "69de0b6f49baa3407f867bea",
+                    "return"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "644"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"284-6Mln9kcdT/I7Hskc16cV1J8Bb8k\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 14 Apr 2026 09:43:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Book returned successfully!\",\n    \"data\": {\n        \"_id\": \"69de0b6f49baa3407f867bea\",\n        \"book\": {\n            \"_id\": \"69de0aa4d693e637533ba194\",\n            \"title\": \"Things Fall Apart\",\n            \"isbn\": \"978-0-385-47454-2\",\n            \"authors\": [\n                \"69dd76afa7b5bea2a5c714c6\"\n            ],\n            \"totalCopies\": 10,\n            \"availableCopies\": 10,\n            \"createdAt\": \"2026-04-14T09:36:36.297Z\",\n            \"updatedAt\": \"2026-04-14T09:43:24.263Z\",\n            \"__v\": 0\n        },\n        \"borrowedBy\": \"69dd6f5034155a4c948fbd19\",\n        \"issuedBy\": \"69de073cd693e637533ba181\",\n        \"borrowDate\": \"2026-04-14T09:39:59.147Z\",\n        \"dueDate\": \"2026-04-21T09:39:59.142Z\",\n        \"returnDate\": \"2026-04-14T09:43:24.259Z\",\n        \"status\": \"returned\",\n        \"createdAt\": \"2026-04-14T09:39:59.159Z\",\n        \"updatedAt\": \"2026-04-14T09:43:24.259Z\",\n        \"__v\": 0\n    }\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Manages all borrow and return transactions in the system.  \nEvery borrow creates a new BorrowRecord and updates the  \nbook's availability. Every return updates the BorrowRecord  \nand restores the book's availability.\n\nAll routes require authentication and are restricted  \nto attendants only."
+    }
+  ]
+}

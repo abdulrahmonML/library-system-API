@@ -2,20 +2,21 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
-const connectDB = require("./config/db");
-const authorRoutes = require("./routes/authorRoute");
-const bookRoutes = require("./routes/bookRoute");
-const studentRoutes = require("./routes/studentRoute");
-const attendantRoutes = require("./routes/attendantRoute");
+const connectDB = require("./src/config/db");
+
+const authRoutes = require("./src/routes/authRoute");
+const authorRoutes = require("./src/routes/authorRoute");
+const bookRoutes = require("./src/routes/bookRoute");
+const borrowRoutes = require("./src/routes/borrowRoute");
 
 app.use(express.json());
 
 connectDB();
 
-app.use("/authors", authorRoutes);
-app.use("/books", bookRoutes);
-app.use("/attendants", attendantRoutes);
-app.use("/students", studentRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/authors", authorRoutes);
+app.use("/api/books", bookRoutes);
+app.use("/api", borrowRoutes);
 
 app.get("/", (req, res) => {
   res.send("server running");

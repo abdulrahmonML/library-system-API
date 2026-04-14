@@ -5,9 +5,11 @@ const authorSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
     bio: {
       type: String,
+      maxlength: 500,
     },
   },
   { timestamps: true },
