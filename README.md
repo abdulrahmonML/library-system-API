@@ -1,6 +1,14 @@
 # 📚 Library Management System API
 
+![Status](https://img.shields.io/badge/status-live-brightgreen) ![Node](https://img.shields.io/badge/node-v18-blue) ![Express](https://img.shields.io/badge/express-v5-lightgrey)
+
 A RESTful API for managing a library system built with Node.js, Express, and MongoDB. The system supports two user roles — **students** and **attendants** — with role-based access control, book management, borrow transactions, email notifications, and cloud-based image uploads.
+
+## 🌐 Live API
+
+**Base URL:** https://library-system-api-cym8.onrender.com
+
+> **Note:** Hosted on Render's free tier. The server spins down after 15 minutes of inactivity — the first request may take 30-60 seconds to respond while it spins back up.
 
 ---
 
@@ -20,17 +28,17 @@ A RESTful API for managing a library system built with Node.js, Express, and Mon
 
 ## 🛠️ Tech Stack
 
-| Layer            | Technology            |
-| ---------------- | --------------------- |
-| Runtime          | Node.js               |
-| Framework        | Express.js v5         |
-| Database         | MongoDB + Mongoose    |
-| Authentication   | JSON Web Tokens (JWT) |
-| Password Hashing | bcryptjs              |
-| Validation       | Joi                   |
-| File Upload      | Multer + Cloudinary   |
-| Email            | Nodemailer            |
-| Environment      | dotenv                |
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js |
+| Framework | Express.js v5 |
+| Database | MongoDB + Mongoose |
+| Authentication | JSON Web Tokens (JWT) |
+| Password Hashing | bcryptjs |
+| Validation | Joi |
+| File Upload | Multer + Cloudinary |
+| Email | Nodemailer |
+| Environment | dotenv |
 
 ---
 
@@ -93,7 +101,6 @@ A RESTful API for managing a library system built with Node.js, Express, and Mon
 ### Prerequisites
 
 Make sure you have the following installed:
-
 - [Node.js](https://nodejs.org/) v18 or higher
 - [MongoDB](https://www.mongodb.com/) — local instance or [MongoDB Atlas](https://www.mongodb.com/atlas) (cloud)
 - A [Cloudinary](https://cloudinary.com/) account (free tier is sufficient)
@@ -179,56 +186,51 @@ Obtain the token by calling the **Login** endpoint. The token expires based on y
 ## 📡 API Endpoints
 
 ### Auth
-
-| Method | Endpoint             | Access | Description                 |
-| ------ | -------------------- | ------ | --------------------------- |
-| POST   | `/api/auth/register` | Public | Register a new user         |
-| POST   | `/api/auth/login`    | Public | Login and receive JWT token |
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/auth/register` | Public | Register a new user |
+| POST | `/api/auth/login` | Public | Login and receive JWT token |
 
 ### Authors
-
-| Method | Endpoint           | Access    | Description                                    |
-| ------ | ------------------ | --------- | ---------------------------------------------- |
-| POST   | `/api/authors`     | Attendant | Create a new author                            |
-| GET    | `/api/authors`     | All       | Get all authors (supports pagination + search) |
-| GET    | `/api/authors/:id` | All       | Get a single author                            |
-| PUT    | `/api/authors/:id` | Attendant | Update an author                               |
-| DELETE | `/api/authors/:id` | Attendant | Delete an author                               |
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/authors` | Attendant | Create a new author |
+| GET | `/api/authors` | All | Get all authors (supports pagination + search) |
+| GET | `/api/authors/:id` | All | Get a single author |
+| PUT | `/api/authors/:id` | Attendant | Update an author |
+| DELETE | `/api/authors/:id` | Attendant | Delete an author |
 
 ### Books
-
-| Method | Endpoint         | Access    | Description                                            |
-| ------ | ---------------- | --------- | ------------------------------------------------------ |
-| POST   | `/api/books`     | Attendant | Add a new book with cover image                        |
-| GET    | `/api/books`     | All       | Get all books (supports pagination, filtering, search) |
-| GET    | `/api/books/:id` | All       | Get a single book                                      |
-| PUT    | `/api/books/:id` | Attendant | Update a book                                          |
-| DELETE | `/api/books/:id` | Attendant | Delete a book                                          |
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/books` | Attendant | Add a new book with cover image |
+| GET | `/api/books` | All | Get all books (supports pagination, filtering, search) |
+| GET | `/api/books/:id` | All | Get a single book |
+| PUT | `/api/books/:id` | Attendant | Update a book |
+| DELETE | `/api/books/:id` | Attendant | Delete a book |
 
 ### Borrows
-
-| Method | Endpoint                        | Access    | Description               |
-| ------ | ------------------------------- | --------- | ------------------------- |
-| POST   | `/api/borrows`                  | Attendant | Issue a book to a student |
-| PUT    | `/api/borrows/:borrowId/return` | Attendant | Process a book return     |
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/borrows` | Attendant | Issue a book to a student |
+| PUT | `/api/borrows/:borrowId/return` | Attendant | Process a book return |
 
 ---
 
 ## 🔍 Query Parameters
 
 ### Books
-
-| Parameter   | Type    | Description                                 |
-| ----------- | ------- | ------------------------------------------- |
-| `available` | Boolean | Filter only available books                 |
-| `title`     | String  | Search by title (partial, case insensitive) |
-| `isbn`      | String  | Search by ISBN                              |
-| `author`    | String  | Filter by author ID                         |
-| `page`      | Number  | Page number (default: 1)                    |
-| `limit`     | Number  | Results per page (default: 10, max: 100)    |
+| Parameter | Type | Description |
+|---|---|---|
+| `status` | String | Filter by `IN` or `OUT` |
+| `available` | Boolean | Filter only available books |
+| `title` | String | Search by title (partial, case insensitive) |
+| `isbn` | String | Search by ISBN |
+| `author` | String | Filter by author ID |
+| `page` | Number | Page number (default: 1) |
+| `limit` | Number | Results per page (default: 10, max: 100) |
 
 **Examples:**
-
 ```
 GET /api/books?status=IN
 GET /api/books?title=things&page=1&limit=5
@@ -236,12 +238,11 @@ GET /api/books?author=64f1a2b3c4d5e6f7a8b9c0d1
 ```
 
 ### Authors
-
-| Parameter | Type   | Description                                |
-| --------- | ------ | ------------------------------------------ |
-| `name`    | String | Search by name (partial, case insensitive) |
-| `page`    | Number | Page number (default: 1)                   |
-| `limit`   | Number | Results per page (default: 10, max: 100)   |
+| Parameter | Type | Description |
+|---|---|---|
+| `name` | String | Search by name (partial, case insensitive) |
+| `page` | Number | Page number (default: 1) |
+| `limit` | Number | Results per page (default: 10, max: 100) |
 
 ---
 
@@ -250,11 +251,10 @@ GET /api/books?author=64f1a2b3c4d5e6f7a8b9c0d1
 A complete Postman collection is included in the `/postman` directory.
 
 **To import:**
-
 1. Open Postman
 2. Click **Import**
 3. Select `postman/library-system-api.json`
-4. Create an environment with `baseUrl` set to `http://localhost:5000`
+4. Create an environment with `baseUrl` set to `https://library-system-api-cym8.onrender.com`
 5. Run the **Login** request first — the token is automatically saved to your environment
 
 ---
@@ -262,7 +262,6 @@ A complete Postman collection is included in the `/postman` directory.
 ## 📧 Email Notifications
 
 The system automatically sends emails for:
-
 - **Registration** — Welcome email on account creation
 - **Borrow** — Confirmation with book title, borrow date, and due date
 - **Return** — Confirmation with return date
@@ -281,7 +280,6 @@ All errors follow a consistent format:
 ```
 
 Common status codes used:
-
 - `400` — Bad request / Validation error
 - `401` — Unauthorized / Token missing or invalid
 - `403` — Forbidden / Insufficient permissions
