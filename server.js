@@ -14,6 +14,10 @@ const AppError = require("./src/utils/appError");
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("server running");
+});
+
 connectDB();
 
 //routes
@@ -30,10 +34,6 @@ app.use((req, res, next) => {
 
 //error handler
 app.use(errorHandler);
-
-app.get("/", (req, res) => {
-  res.send("server running");
-});
 
 const PORT = process.env.PORT || 4006;
 app.listen(PORT, () => {
