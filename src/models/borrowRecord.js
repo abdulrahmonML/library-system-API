@@ -36,7 +36,21 @@ const bookRecordSchema = new mongoose.Schema(
       default: "borrowed",
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        return ret;
+      },
+    },
+    toObject: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        return ret;
+      },
+    },
+  },
 );
 
 module.exports = mongoose.model("BookRecord", bookRecordSchema);

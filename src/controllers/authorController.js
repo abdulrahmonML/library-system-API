@@ -1,132 +1,83 @@
-const Author = require("../models/author");
+const authorService = require("../services/authorService");
 
-const createAuthor = async (req, res) => {
+const createAuthor = async (req, res, next) => {
   try {
     const { name, bio } = req.body;
 
-    if (!name) {
-      return res.status(400).json({
-        message: "Name is required",
-      });
-    }
-
-    const author = await Author.create({ name, bio });
+    const author = await authorService.create(name, bio);
 
     res.status(201).json({
+      status: "success",
       message: "Author created successfully",
       data: author,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-const getAuthors = async (req, res) => {
+const getAuthors = async (req, res, next) => {
   try {
-    const authors = await Author.find().sort({ createdAt: -1 });
+    const { name, page, limit } = req.query;
+
+    const authors = await authorService.getAll({ name }, page, limit);
 
     res.status(200).json({
-      message: "Authors fetched successfully",
+      success: true,
+      message: "Authors fetched",
       data: authors,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-const getAuthorById = async (req, res) => {
+const getAuthorById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const author = await Author.findById(id);
-
-    if (!author) {
-      return res.status(404).json({
-        message: "Author does not exist",
-      });
-    }
+    const author = await authorService.getOne(id);
 
     res.status(200).json({
-      message: `Author  fetched successfully`,
+      success: true,
+      message: "Author fetched",
       data: author,
     });
   } catch (error) {
-    if (error.name === "CastError")
-      return res.status(400).json({
-        message: "Invalid ID",
-      });
-
-    return res.status(500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 
 //PUT AUTHOR
-const updateAuthor = async (req, res) => {
+const updateAuthor = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const { name, bio } = req.body;
 
-    const author = await Author.findByIdAndUpdate(
-      id,
-      { $set: { name, bio } },
-      {
-        returnDocument: "after",
-        runValidators: true,
-      },
-    );
-
-    if (!author) {
-      return res.status(404).json({
-        message: "Author to update does not exist",
-      });
-    }
+    const author = await authorService.update(id);
 
     return res.status(200).json({
-      message: "Author updated successfully",
+      success: true,
+      message: "Author updated",
       data: author,
     });
   } catch (error) {
-    if (error.name === "CastError")
-      return res.status(400).json({
-        message: "Invalid ID",
-      });
-
-    return res.status(500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
-const deleteAuthor = async (req, res) => {
+const deleteAuthor = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const author = await Author.findByIdAndDelete(id);
-
-    if (!author) {
-      return res.status(400).json({
-        message: "Author to delete does not exist",
-      });
-    }
+    const author = await authorService.deleteOne(id);
 
     return res.status(200).json({
+      success: true,
       message: "Author deleted successfully",
     });
   } catch (error) {
-    if (error.name === "CastError")
-      return res.status(400).json({
-        message: "Invalid ID",
-      });
-
-    return res.status(500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 

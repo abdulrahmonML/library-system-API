@@ -12,7 +12,21 @@ const authorSchema = new mongoose.Schema(
       maxlength: 500,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        return ret;
+      },
+    },
+    toObject: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        return ret;
+      },
+    },
+  },
 );
 
 module.exports = mongoose.model("Author", authorSchema);

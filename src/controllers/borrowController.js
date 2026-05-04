@@ -1,24 +1,28 @@
 const borrowService = require("../services/borrowService");
 
-const borrowBook = async (req, res) => {
+const borrowBook = async (req, res, next) => {
   try {
     const { bookId, studentId } = req.body;
+    if (!bookId || !studentId) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
+    }
     const user = req.user;
 
     const borrowedBook = await borrowService.borrow(user, bookId, studentId);
 
     return res.status(200).json({
-      message: "Book borrowed successfully!",
+      success: true,
+      message: "Book borrowed!",
       data: borrowedBook,
     });
   } catch (error) {
-    return res.status(error.statusCode || 500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-const returnBookById = async (req, res) => {
+const returnBookById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const borrowId = id;
@@ -28,13 +32,12 @@ const returnBookById = async (req, res) => {
     const returnedBook = await borrowService.returnBook(user, borrowId);
 
     return res.status(200).json({
-      message: "Book returned successfully!",
+      success: true,
+      message: "Book returned!",
       data: returnedBook,
     });
   } catch (error) {
-    return res.status(error.statusCode || 500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 

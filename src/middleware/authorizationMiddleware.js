@@ -12,6 +12,7 @@ const roleMiddleware = (...allowedRoles) => {
 
     if (!allowedRoles.includes(userRole)) {
       return res.status(403).json({
+        status: "error",
         message: "Forbidden: Insufficient permissions",
       });
     }

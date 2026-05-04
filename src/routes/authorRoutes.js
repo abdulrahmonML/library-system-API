@@ -12,8 +12,20 @@ const {
   deleteAuthor,
 } = require("../controllers/authorController");
 
-router.post("/", protect, roleMiddleware("attendant"), createAuthor);
-router.get("/", getAuthors);
+const validate = require("../middleware/validate");
+const {
+  createAuthorSchema,
+  getAuthorQuerySchema,
+} = require("../validators/authorValidator");
+
+router.post(
+  "/",
+  protect,
+  roleMiddleware("attendant"),
+  validate(createAuthorSchema),
+  createAuthor,
+);
+router.get("/", validate(getAuthorQuerySchema, "query"), getAuthors);
 router.get("/:id", getAuthorById);
 router.put("/:id", protect, roleMiddleware("attendant"), updateAuthor);
 router.delete("/:id", protect, roleMiddleware("attendant"), deleteAuthor);

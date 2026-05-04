@@ -9,17 +9,16 @@ const {
   returnBookById,
 } = require("../controllers/borrowController");
 
+const validate = require("../middleware/validate");
+const borrowSchema = require("../validators/borrowValidator");
+
 router.post(
-  "/borrows",
+  "/",
   protect,
-  roleMiddleware("student", "attendant"),
+  roleMiddleware("attendant"),
+  validate(borrowSchema),
   borrowBook,
 );
-router.put(
-  "/:id/return",
-  protect,
-  roleMiddleware("student", "attendant"),
-  returnBookById,
-);
+router.put("/:id/return", protect, roleMiddleware("attendant"), returnBookById);
 
 module.exports = router;

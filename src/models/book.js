@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const bookSchema = new mongoose.Schema(
   {
     title: {
@@ -27,7 +26,6 @@ const bookSchema = new mongoose.Schema(
         message: "A book must have at least one author",
       },
     },
-
     totalCopies: {
       type: Number,
       required: true,
@@ -40,8 +38,37 @@ const bookSchema = new mongoose.Schema(
       min: 0,
       default: 0,
     },
+    borrowId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "BookRecord",
+    },
+    image: {
+      imageUrl: {
+        type: String,
+        required: true,
+      },
+      publicId: {
+        type: String,
+        required: true,
+      },
+    },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    // Add the transformation logic here
+    toJSON: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        return ret;
+      },
+    },
+    toObject: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        return ret;
+      },
+    },
+  },
 );
 
 module.exports = mongoose.model("Book", bookSchema);
